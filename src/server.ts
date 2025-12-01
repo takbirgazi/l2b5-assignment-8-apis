@@ -2,6 +2,7 @@
 import { Server } from "http";
 import { envVars } from "./app/config/env";
 import app from "./app";
+import seedSuperAdmin from "./app/utils/seedSuperAdmin";
 
 
 
@@ -32,7 +33,7 @@ const startServer = async () => {
 
 (async () => {
     await startServer();
-    // await seedSuperAdmin();
+    await seedSuperAdmin();
 })();
 
 // Handle Server Error Start =====================================================================

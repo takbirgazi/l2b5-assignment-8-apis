@@ -1,18 +1,21 @@
-/*
-  Warnings:
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('SUPER_ADMIN', 'ADMIN', 'USER', 'GUIDE');
 
-  - You are about to drop the column `name` on the `users` table. All the data in the column will be lost.
-  - You are about to drop the column `phone` on the `users` table. All the data in the column will be lost.
-  - You are about to drop the column `picture` on the `users` table. All the data in the column will be lost.
+-- CreateEnum
+CREATE TYPE "UserStatus" AS ENUM ('ACTIVE', 'INACTIVE', 'BLOCK');
 
-*/
--- AlterEnum
-ALTER TYPE "Role" ADD VALUE 'GUIDE';
+-- CreateTable
+CREATE TABLE "users" (
+    "id" SERIAL NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "role" "Role" NOT NULL DEFAULT 'USER',
+    "status" "UserStatus" NOT NULL DEFAULT 'ACTIVE',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
--- AlterTable
-ALTER TABLE "users" DROP COLUMN "name",
-DROP COLUMN "phone",
-DROP COLUMN "picture";
+    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "admins" (
@@ -45,6 +48,9 @@ CREATE TABLE "tourists" (
 
     CONSTRAINT "tourists_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "admins_email_key" ON "admins"("email");
