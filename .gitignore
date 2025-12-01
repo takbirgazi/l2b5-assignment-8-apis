@@ -4,3 +4,6 @@ dist
 .env.test
 
 /src/generated/prisma
+.vercel
+
+/src/generated/prisma
